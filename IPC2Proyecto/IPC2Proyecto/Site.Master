@@ -1,0 +1,116 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="IPC2Proyecto.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/">IPC2Proyecto</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+
+                    <asp:MultiView ID="TipoMultiView" runat="server">
+                        <asp:View ID="AdminView" runat="server">
+                            <li><a runat="server" href="~/PaginasAdmin/GestionDeRecurso">Gestion de recursos</a></li>
+                            <li><a runat="server" href="~/PaginasAdmin/CargaMasiva">Carga masiva</a></li>
+                            <li><a runat="server" href="~/PaginasAdmin/AdminPage">Otras paginas</a></li>
+                        </asp:View>
+                        <asp:View ID="OperadorView" runat="server">
+                            <li><a runat="server" href="~/PaginasOperador/NuevaActividad">Reservar Salon</a></li>
+                            <li><a runat="server" href="~/PaginasOperador/Cursos">Cursos</a></li>
+                            <li><a runat="server" href="~/PaginasOperador/Prestamos/Insumos">Insumos</a></li>
+                            <li><a runat="server" href="~/PaginasOperador/Incidentes">Incidentes</a></li>
+                            <li><a runat="server" href="~/PaginasOperador/Calendario">Calendario</a></li>
+                            <li><a runat="server" href="~/PaginasOperador/GestionDeRecursos">Gestor de recursos</a></li>
+                        </asp:View>
+                        <asp:View ID="InstructorView" runat="server">
+                            <li><a runat="server" href="~/PaginasInstructor/MisCartas">Cartas</a></li>
+                            <li><a runat="server" href="~/PaginasInstructor/Calendario">Calendario</a></li>
+                            <li><a runat="server" href="~/PaginasInstructor/MisActividades">Mis Actividades</a></li>
+                        </asp:View>
+                        <asp:View ID="EstudianteView" runat="server">
+                            <li><a runat="server" href="~/PaginasEstudiante/Cursos/CursosDisponibles">Asignacion</a></li>
+                            <li><a runat="server" href="~/PaginasEstudiante/Actividades/ActividadesDisponibles">Matriculacion</a></li>
+                            <li><a runat="server" href="~/PaginasEstudiante/Actividades/Calendario">Calendario</a></li>
+                            <li><a runat="server" href="~/PaginasEstudiante/Actividades/MisActividades">Mis Actividades</a></li>
+                        </asp:View>
+                        <asp:View ID="AnonimoView" runat="server">
+                        </asp:View>
+                    </asp:MultiView>
+                    </ul>
+
+                    <asp:MultiView ID="IdentidadMultiView" runat="server">
+                        <asp:View ID="Anonimo" runat="server">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Register">Register</a></li>
+                                <li><a runat="server" href="~/Login">Log in</a></li>
+                            </ul>
+                        </asp:View>
+                        <asp:View ID="Loggedin" runat="server">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/PaginasUsuario/GestionarCuenta" title="Manage your account">Hello, <%: GetNombre()  %> !</a></li>
+                                <li>
+                                    <asp:LinkButton ID="LinkButton1" OnClick="Logout" runat="server">Logout</asp:LinkButton>
+                                </li>
+                            </ul>
+                        </asp:View>
+                    </asp:MultiView>
+
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>
